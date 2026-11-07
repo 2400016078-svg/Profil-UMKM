@@ -136,14 +136,14 @@ section { margin-bottom: 48px; }
 }
 
 .foto {
+     width: 100%;
     aspect-ratio: 4 / 3;
-    background: var(--garis);
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 12px;
-    display: grid;
-    place-items: center;
-    color: var(--redup);
+    display: block;
 }
+
 
 /* ===== Tombol WhatsApp ===== */
 .tombol {

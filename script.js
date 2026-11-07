@@ -1,9 +1,9 @@
 // Daftar menu Gepuk Burger
 const produk = [
-    { nama: 'Gepuk Original', harga: 18000, keterangan: 'Daging sapi gepuk, keju cheddar, acar timun, dan saus rahasia.' },
-    { nama: 'Gepuk Keju Leleh', harga: 23000, keterangan: 'Dua lapis keju yang meleleh di atas daging panas.' },
-    { nama: 'Gepuk Sambal Bawang', harga: 22000, keterangan: 'Pedas gurih dengan sambal bawang racikan sendiri.' },
-    { nama: 'Gepuk Dobel', harga: 32000, keterangan: 'Dua daging gepuk, dua keju, untuk yang lapar berat.' },
+    { nama: 'Gepuk Original', harga: 18000, keterangan: 'Daging sapi gepuk, keju cheddar, acar timun, dan saus rahasia.', foto: 'gambar/original.jpg' },
+    { nama: 'Gepuk Keju Leleh', harga: 23000, keterangan: 'Dua lapis keju yang meleleh di atas daging panas.', foto: 'gambar/keju-leleh.jpg' },
+    { nama: 'Gepuk Sambal Bawang', harga: 22000, keterangan: 'Pedas gurih dengan sambal bawang racikan sendiri.', foto: 'gambar/burgersambalbawang.png.jpeg' },
+    { nama: 'Gepuk Dobel', harga: 32000, keterangan: 'Dua daging gepuk, dua keju, untuk yang lapar berat.', foto: 'gambar/burgerdobel.png.jpeg' },
 ];
 
 // Jam buka (format 24 jam), harus sama dengan teks jam buka di index.html
@@ -21,7 +21,7 @@ function tampilkanProduk() {
         const kartu = document.createElement('article');
         kartu.className = 'kartu';
         kartu.innerHTML = `
-            <div class="foto">Foto</div>
+            <img class="foto" src="${p.foto}" alt="${p.nama}">
             <h3>${p.nama}</h3>
             <p>${p.keterangan}</p>
             <p class="harga">${rupiah(p.harga)}</p>
