@@ -1,13 +1,14 @@
-// TODO: ganti dengan produk UMKM kalian. Gambar boleh dikosongkan dulu.
+// Daftar menu Gepuk Burger
 const produk = [
-    { nama: 'Produk pertama', harga: 15000, keterangan: 'Keterangan singkat produk.' },
-    { nama: 'Produk kedua', harga: 20000, keterangan: 'Keterangan singkat produk.' },
-    { nama: 'Produk ketiga', harga: 25000, keterangan: 'Keterangan singkat produk.' },
+    { nama: 'Gepuk Original', harga: 18000, keterangan: 'Daging sapi gepuk, keju cheddar, acar timun, dan saus rahasia.' },
+    { nama: 'Gepuk Keju Leleh', harga: 23000, keterangan: 'Dua lapis keju yang meleleh di atas daging panas.' },
+    { nama: 'Gepuk Sambal Bawang', harga: 22000, keterangan: 'Pedas gurih dengan sambal bawang racikan sendiri.' },
+    { nama: 'Gepuk Dobel', harga: 32000, keterangan: 'Dua daging gepuk, dua keju, untuk yang lapar berat.' },
 ];
 
-// TODO: sesuaikan jam buka (format 24 jam)
-const jamBuka = 8;
-const jamTutup = 17;
+// Jam buka (format 24 jam), harus sama dengan teks jam buka di index.html
+const jamBuka = 10;
+const jamTutup = 22;
 
 function rupiah(angka) {
     return 'Rp' + angka.toLocaleString('id-ID');
