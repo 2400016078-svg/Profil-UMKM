@@ -27,11 +27,21 @@
 
         <section id="tentang">
             <h2>Tentang Kami</h2>
-            <p>Gepuk Burger berawal dari gerobak kecil dekat kampus di Yogyakarta. Bola daging sapi kami pipihkan langsung di atas wajan besi yang sangat panas, sehingga pinggirnya renyah dan bagian dalamnya tetap juicy. Rotinya dipanggang dengan mentega, dan sambalnya kami racik sendiri setiap pagi.</p>
+            <p>Gepuk Burger berawal dari gerobak kecil dekat kampus di Yogyakarta. Bola daging sapi kami pipihkan langsung di atas wajan besi yang sangat panas, sehingga pinggirnya renyah dan bagian dalamnya tetap juicy. Rotinya dipanggang dengan mentega, dan saos dan sambalnya kami racik sendiri setiap pagi.</p>
         </section>
 
         <section id="produk">
-            <h2>Produk</h2>
+            <div class="judul-produk">
+                <h2>Produk</h2>
+                <div class="kontrol">
+                    <button class="geser" id="geser-kiri" aria-label="Produk sebelumnya">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <button class="geser" id="geser-kanan" aria-label="Produk berikutnya">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                </div>
+            </div>
             <!-- Kartu produk diisi oleh script.js -->
             <div id="daftar-produk" class="grid"></div>
         </section>

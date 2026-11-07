@@ -109,12 +109,6 @@ section { margin-bottom: 48px; }
 #tentang p { max-width: 720px; }
 
 /* ===== Kartu produk ===== */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-}
-
 .kartu {
     background: var(--kartu);
     border: 1px solid var(--garis);
@@ -135,15 +129,15 @@ section { margin-bottom: 48px; }
     margin: 0;
 }
 
+/* Foto produk */
 .foto {
-     width: 100%;
+    width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 12px;
     display: block;
 }
-
 
 /* ===== Tombol WhatsApp ===== */
 .tombol {
@@ -183,4 +177,58 @@ section { margin-bottom: 48px; }
     .hero h1 { font-size: 32px; }
     .hero p { font-size: 16px; }
     .atas nav { gap: 14px; }
+}
+
+/* ===== Slider produk ===== */
+/* Judul "Produk" di kiri, tombol geser di kanan */
+.judul-produk {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 16px;
+}
+.judul-produk h2 { margin: 0; }
+
+.kontrol { display: flex; gap: 8px; }
+
+.geser {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--utama);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--utama);
+    display: grid;
+    place-items: center;              /* panah tepat di tengah lingkaran */
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.geser svg { width: 18px; height: 18px; }
+.geser:hover:not(:disabled) {
+    background: var(--utama);
+    color: #fff;
+}
+.geser:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.grid {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;                 /* bisa digeser ke samping */
+    scroll-snap-type: x mandatory;    /* berhenti pas di awal kartu */
+    scroll-behavior: smooth;
+    padding: 8px 4px 28px;            /* bawah 28px agar bayangan kartu tidak terpotong */
+    scrollbar-width: none;            /* sembunyikan scrollbar (Firefox) */
+}
+.grid::-webkit-scrollbar { display: none; }   /* sembunyikan scrollbar (Chrome) */
+
+.kartu {
+    flex: 0 0 260px;                  /* lebar setiap kartu 260px */
+    scroll-snap-align: start;
+}
+
+@media (max-width: 600px) {
+    .kartu { flex-basis: 80%; }       /* di HP satu kartu hampir selebar layar */
 }
