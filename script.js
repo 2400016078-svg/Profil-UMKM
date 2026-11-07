@@ -165,7 +165,51 @@ function kirimPesanan() {
     const alamat = 'https://wa.me/' + nomorWA + '?text=' + encodeURIComponent(teks);
     window.open(alamat, '_blank');
 }
+// ===== KIRIM PESANAN VIA TELEGRAM =====
 
+function kirimPesananTelegram() {
+    const nama = document.getElementById('nama-pemesan').value.trim();
+    const catatan = document.getElementById('catatan').value.trim();
+    const pesanError = document.getElementById('pesan-error');
+
+    // Validasi nama
+    if (nama === '') {
+        pesanError.textContent = 'Nama pemesan tidak boleh kosong.';
+        document.getElementById('nama-pemesan').focus();
+        return;
+    }
+
+    pesanError.textContent = '';
+
+    // Susun isi pesan Telegram
+    let teks = 'Halo Gepuk Burger, saya mau pesan:\n';
+    let total = 0;
+
+    for (let i = 0; i < produk.length; i++) {
+        if (jumlah[i] > 0) {
+            const subtotal = produk[i].harga * jumlah[i];
+            total = total + subtotal;
+
+            teks += '- ' + produk[i].nama + ' x' + jumlah[i] +
+                    ' = ' + rupiah(subtotal) + '\n';
+        }
+    }
+
+    teks += '\nTotal: ' + rupiah(total);
+    teks += '\nNama: ' + nama;
+
+    if (catatan !== '') {
+        teks += '\nCatatan: ' + catatan;
+    }
+
+    // Buka Telegram dengan pesan pesanan
+    const usernameTelegram = 'gepukburger';
+
+const alamat = 'https://t.me/' + usernameTelegram +
+               '?text=' + encodeURIComponent(teks);
+
+window.location.href = alamat;
+}
 function kosongkanKeranjang() {
     for (let i = 0; i < produk.length; i++) {
         jumlah[i] = 0;
@@ -228,4 +272,5 @@ aturSlider();
 perbaruiKeranjang();
 
 document.getElementById('kirim-pesanan').addEventListener('click', kirimPesanan);
+document.getElementById('kirim-telegram').addEventListener('click', kirimPesananTelegram);
 document.getElementById('kosongkan').addEventListener('click', kosongkanKeranjang);
