@@ -1,11 +1,11 @@
 /* ===== Warna tema Gepuk Burger =====*/
 :root {
-    --utama: #b91c1c;      /* merah saus tomat */
-    --aksen: #f59e0b;      /* kuning mustard */
-    --gelap: #3b1d0f;      /* cokelat roti panggang */
+    --utama: #b91c1c;      
+    --aksen: #f59e0b;    
+    --gelap: #3b1d0f;     
     --teks: #1f2937;
     --redup: #6b7280;
-    --latar: #fff8ee;      /* krem roti */
+    --latar: #fff8ee;      
     --kartu: #ffffff;
     --garis: #f1e4d3;
 }
@@ -509,3 +509,85 @@ button.tombol {
     cursor: pointer;
 }
 .hapus-ulasan:hover { color: var(--utama); }
+
+
+/* ===== Tentang Kami ===== */
+.tentang-isi {
+    display: grid;
+    grid-template-columns: 3fr 2fr;   /* teks lebih lebar dari daftar keunggulan */
+    gap: 32px;
+    align-items: start;
+}
+.tentang-isi p { margin: 0 0 12px; }
+#tentang p { max-width: none; }
+
+.keunggulan {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+}
+.keunggulan li {
+    background: var(--kartu);
+    border: 1px solid var(--garis);
+    border-left: 4px solid var(--aksen);
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+.keunggulan strong { display: block; color: var(--gelap); }
+.keunggulan span { color: var(--redup); font-size: 15px; }
+
+/* ===== Galeri ===== */
+.galeri {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+.galeri figure { margin: 0; }
+.galeri img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    background: var(--garis);         /* warna sementara kalau foto belum ada */
+}
+.galeri figcaption {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--redup);
+}
+
+/* ===== Lokasi dan Kontak ===== */
+.kontak-isi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+.kontak-info p { margin: 0 0 14px; }
+.peta {
+    width: 100%;
+    height: 300px;
+    border: 0;
+    border-radius: 12px;
+}
+
+/* ===== Footer ===== */
+.isi-bawah {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
+.sosmed { display: flex; gap: 16px; }
+.sosmed a { color: var(--aksen); text-decoration: none; font-weight: 600; }
+.sosmed a:hover { text-decoration: underline; }
+
+/* ===== Tampilan HP untuk bagian profil ===== */
+@media (max-width: 700px) {
+    .tentang-isi,
+    .kontak-isi { grid-template-columns: 1fr; }   /* susun ke bawah, tidak berdampingan */
+    .peta { height: 240px; }
+}
