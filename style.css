@@ -157,13 +157,19 @@ section { margin-bottom: 48px; }
     display: inline-block;
     background: #229ED9;
     color: #fff;
+    font-family: inherit;
+    font-size: 16px;
     font-weight: 600;
     border: none;
     border-radius: 999px;
     padding: 12px 24px;
-    margin-top: 8px;
     cursor: pointer;
     transition: background 0.2s;
+}
+.tombol-telegram:hover { background: #168ac0; }
+.tombol-telegram:disabled {
+    opacity: 0.4;
+    cursor: default;
 }
 
 /* ===== Footer ===== */
@@ -340,7 +346,7 @@ section { margin-bottom: 48px; }
 .aksi-pesanan {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
 }
 
 /* .tombol juga dipakai untuk <button>, jadi hapus gaya bawaan tombol */
@@ -390,13 +396,6 @@ button.tombol {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     white-space: nowrap;
 }
-/* Mengatur posisi tombol pesanan */
-.aksi-pesanan {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
 /* Menyamakan ukuran tombol WhatsApp dan Telegram */
 #kirim-pesanan,
 #kirim-telegram {
@@ -405,3 +404,108 @@ button.tombol {
 }
 .ringkas strong { color: var(--aksen); }
 .ringkas[hidden] { display: none; }   /* wajib, karena display: flex di atas mengalahkan hidden */
+
+/* ===== Ulasan dan rating ===== */
+.ulasan { max-width: 720px; }
+
+.ringkasan-rating {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.rata-rata {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--gelap);
+    line-height: 1;
+}
+.bintang-tampil {
+    color: var(--aksen);
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+.ringkasan-rating small { color: var(--redup); }
+
+.form-ulasan {
+    background: var(--kartu);
+    border: 1px solid var(--garis);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+.form-ulasan label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.form-ulasan input,
+.form-ulasan textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d6c7b4;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    margin-bottom: 14px;
+    background: #fff;
+}
+.form-ulasan input:focus,
+.form-ulasan textarea:focus {
+    outline: 2px solid var(--aksen);
+    border-color: var(--aksen);
+}
+
+/* Lima bintang yang bisa diklik */
+.pilih-bintang {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 14px;
+}
+.pilih-bintang button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 32px;
+    line-height: 1;
+    color: #d6c7b4;           /* abu-abu: belum dipilih */
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+.pilih-bintang button:hover { transform: scale(1.15); }
+.pilih-bintang button.aktif { color: var(--aksen); }   /* kuning: sudah dipilih */
+
+/* Daftar ulasan */
+.daftar-ulasan {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.daftar-ulasan li {
+    border-bottom: 1px solid var(--garis);
+    padding: 14px 0;
+}
+.daftar-ulasan li.kosong { color: var(--redup); border-bottom: none; }
+.kepala-ulasan {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+.daftar-ulasan p { margin: 6px 0; }
+.kaki-ulasan {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--redup);
+}
+.hapus-ulasan {
+    background: none;
+    border: none;
+    color: var(--redup);
+    font-family: inherit;
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.hapus-ulasan:hover { color: var(--utama); }

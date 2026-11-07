@@ -122,6 +122,7 @@ function perbaruiKeranjang() {
 
     // Tombol kirim dan kosongkan mati kalau belum ada pesanan
     document.getElementById('kirim-pesanan').disabled = totalItem === 0;
+    document.getElementById('kirim-telegram').disabled = totalItem === 0;
     document.getElementById('kosongkan').disabled = totalItem === 0;
 
     // Bar ringkasan di bawah layar
@@ -134,6 +135,8 @@ function kirimPesanan() {
     const nama = document.getElementById('nama-pemesan').value.trim();
     const catatan = document.getElementById('catatan').value.trim();
     const pesanError = document.getElementById('pesan-error');
+
+    pesanError.style.color = '';
 
     // Validasi: nama tidak boleh kosong
     if (nama === '') {
@@ -167,10 +170,15 @@ function kirimPesanan() {
 }
 // ===== KIRIM PESANAN VIA TELEGRAM =====
 
+// Username Telegram toko (tanpa tanda @)
+const usernameTelegram = 'gepukburger';
+
 function kirimPesananTelegram() {
     const nama = document.getElementById('nama-pemesan').value.trim();
     const catatan = document.getElementById('catatan').value.trim();
     const pesanError = document.getElementById('pesan-error');
+
+    pesanError.style.color = '';
 
     // Validasi nama
     if (nama === '') {
@@ -178,7 +186,6 @@ function kirimPesananTelegram() {
         document.getElementById('nama-pemesan').focus();
         return;
     }
-
     pesanError.textContent = '';
 
     // Susun isi pesan Telegram
@@ -189,27 +196,28 @@ function kirimPesananTelegram() {
         if (jumlah[i] > 0) {
             const subtotal = produk[i].harga * jumlah[i];
             total = total + subtotal;
-
-            teks += '- ' + produk[i].nama + ' x' + jumlah[i] +
-                    ' = ' + rupiah(subtotal) + '\n';
+            teks = teks + '- ' + produk[i].nama + ' x' + jumlah[i] + ' = ' + rupiah(subtotal) + '\n';
         }
     }
 
-    teks += '\nTotal: ' + rupiah(total);
-    teks += '\nNama: ' + nama;
-
+    teks = teks + '\nTotal: ' + rupiah(total);
+    teks = teks + '\nNama: ' + nama;
     if (catatan !== '') {
-        teks += '\nCatatan: ' + catatan;
+        teks = teks + '\nCatatan: ' + catatan;
     }
 
-    // Buka Telegram dengan pesan pesanan
-    const usernameTelegram = 'gepukburger';
+    // Link Telegram ke akun toko tidak bisa mengisi pesan otomatis seperti WhatsApp.
+    // Jadi pesan disalin dulu, pembeli tinggal menempelnya di chat.
+    navigator.clipboard.writeText(teks).then(function () {
+        pesanError.style.color = '#15803d';
+        pesanError.textContent = 'Pesanan sudah disalin. Tempel (Ctrl + V) di chat Telegram yang terbuka.';
+    }).catch(function () {
+        pesanError.textContent = 'Pesanan gagal disalin otomatis. Ketik pesananmu di chat Telegram.';
+    });
 
-const alamat = 'https://t.me/' + usernameTelegram +
-               '?text=' + encodeURIComponent(teks);
-
-window.location.href = alamat;
+    window.open('https://t.me/' + usernameTelegram, '_blank');
 }
+
 function kosongkanKeranjang() {
     for (let i = 0; i < produk.length; i++) {
         jumlah[i] = 0;
@@ -274,3 +282,173 @@ perbaruiKeranjang();
 document.getElementById('kirim-pesanan').addEventListener('click', kirimPesanan);
 document.getElementById('kirim-telegram').addEventListener('click', kirimPesananTelegram);
 document.getElementById('kosongkan').addEventListener('click', kosongkanKeranjang);
+
+
+// ===== ULASAN DAN RATING =====
+
+// Rating yang sedang dipilih di form (0 = belum memilih)
+let ratingDipilih = 0;
+
+// Semua ulasan. Setiap ulasan berupa object: { nama, rating, komentar, tanggal }
+let ulasan = [];
+
+// Ambil ulasan yang tersimpan di browser (localStorage)
+function muatUlasan() {
+    try {
+        const data = localStorage.getItem('ulasan-gepuk');
+        ulasan = data ? JSON.parse(data) : [];
+    } catch (e) {
+        ulasan = [];
+    }
+}
+
+// Simpan ulasan ke browser supaya tidak hilang saat halaman di-refresh
+function simpanUlasan() {
+    try {
+        localStorage.setItem('ulasan-gepuk', JSON.stringify(ulasan));
+    } catch (e) {
+        // Kalau penyimpanan diblokir browser, ulasan tetap tampil sampai halaman ditutup
+    }
+}
+
+// Ubah angka rating menjadi teks bintang, contoh: 4 -> ★★★★☆
+function teksBintang(nilai) {
+    return '★'.repeat(nilai) + '☆'.repeat(5 - nilai);
+}
+
+// Pasang event klik pada 5 tombol bintang di form
+function aturPilihBintang() {
+    const semuaTombol = document.querySelectorAll('#pilih-bintang button');
+    semuaTombol.forEach(function (tombol) {
+        tombol.addEventListener('click', function () {
+            ratingDipilih = Number(tombol.dataset.nilai);
+            warnaiBintang();
+        });
+    });
+}
+
+// Bintang nomor 1 sampai ratingDipilih diberi warna kuning
+function warnaiBintang() {
+    const semuaTombol = document.querySelectorAll('#pilih-bintang button');
+    semuaTombol.forEach(function (tombol) {
+        if (Number(tombol.dataset.nilai) <= ratingDipilih) {
+            tombol.classList.add('aktif');
+        } else {
+            tombol.classList.remove('aktif');
+        }
+    });
+}
+
+function tampilkanUlasan() {
+    const daftar = document.getElementById('daftar-ulasan');
+    daftar.innerHTML = '';
+
+    // Hitung rata-rata rating
+    let totalRating = 0;
+    for (let i = 0; i < ulasan.length; i++) {
+        totalRating = totalRating + ulasan[i].rating;
+    }
+    const rataRata = ulasan.length > 0 ? totalRating / ulasan.length : 0;
+
+    document.getElementById('rata-rata').textContent = rataRata.toFixed(1).replace('.', ',');
+    document.getElementById('bintang-rata').textContent = teksBintang(Math.round(rataRata));
+    document.getElementById('jumlah-ulasan').textContent =
+        ulasan.length > 0 ? 'Dari ' + ulasan.length + ' ulasan' : 'Belum ada ulasan';
+
+    if (ulasan.length === 0) {
+        daftar.innerHTML = '<li class="kosong">Belum ada ulasan. Jadilah yang pertama!</li>';
+        return;
+    }
+
+    // Tampilkan dari yang terbaru (indeks terakhir) ke yang terlama
+    for (let i = ulasan.length - 1; i >= 0; i--) {
+        const u = ulasan[i];
+        const item = document.createElement('li');
+
+        const kepala = document.createElement('div');
+        kepala.className = 'kepala-ulasan';
+
+        const nama = document.createElement('strong');
+        nama.textContent = u.nama;   // textContent: teks ditampilkan apa adanya, kode HTML tidak dijalankan
+
+        const bintang = document.createElement('span');
+        bintang.className = 'bintang-tampil';
+        bintang.textContent = teksBintang(u.rating);
+
+        kepala.appendChild(nama);
+        kepala.appendChild(bintang);
+
+        const komentar = document.createElement('p');
+        komentar.textContent = u.komentar;
+
+        const kaki = document.createElement('div');
+        kaki.className = 'kaki-ulasan';
+
+        const tanggal = document.createElement('small');
+        tanggal.textContent = u.tanggal;
+
+        const tombolHapus = document.createElement('button');
+        tombolHapus.className = 'hapus-ulasan';
+        tombolHapus.textContent = 'Hapus';
+        tombolHapus.addEventListener('click', function () {
+            hapusUlasan(i);
+        });
+
+        kaki.appendChild(tanggal);
+        kaki.appendChild(tombolHapus);
+
+        item.appendChild(kepala);
+        item.appendChild(komentar);
+        item.appendChild(kaki);
+        daftar.appendChild(item);
+    }
+}
+
+function kirimUlasan(event) {
+    event.preventDefault();   // cegah halaman ter-refresh saat form dikirim
+
+    const nama = document.getElementById('nama-ulasan').value.trim();
+    const komentar = document.getElementById('isi-ulasan').value.trim();
+    const error = document.getElementById('error-ulasan');
+
+    // Validasi: nama, rating, dan komentar wajib diisi
+    if (nama === '') {
+        error.textContent = 'Nama tidak boleh kosong.';
+        return;
+    }
+    if (ratingDipilih === 0) {
+        error.textContent = 'Pilih rating 1 sampai 5 bintang.';
+        return;
+    }
+    if (komentar === '') {
+        error.textContent = 'Komentar tidak boleh kosong.';
+        return;
+    }
+    error.textContent = '';
+
+    ulasan.push({
+        nama: nama,
+        rating: ratingDipilih,
+        komentar: komentar,
+        tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+    });
+    simpanUlasan();
+
+    // Kosongkan form lagi
+    document.getElementById('form-ulasan').reset();
+    ratingDipilih = 0;
+    warnaiBintang();
+
+    tampilkanUlasan();
+}
+
+function hapusUlasan(index) {
+    ulasan.splice(index, 1);   // buang 1 ulasan di posisi index
+    simpanUlasan();
+    tampilkanUlasan();
+}
+
+muatUlasan();
+aturPilihBintang();
+tampilkanUlasan();
+document.getElementById('form-ulasan').addEventListener('submit', kirimUlasan);

@@ -14,6 +14,7 @@
                 <a href="#tentang">Tentang</a>
                 <a href="#produk">Produk</a>
                 <a href="#pesanan">Pesanan</a>
+                <a href="#ulasan">Ulasan</a>
                 <a href="#kontak">Kontak</a>
             </nav>
         </div>
@@ -71,8 +72,45 @@
             </div>
         </section>
 
+        <section id="ulasan" class="ulasan">
+            <h2>Ulasan Pembeli</h2>
+
+            <!-- Ringkasan: rata-rata rating dan jumlah ulasan -->
+            <div class="ringkasan-rating">
+                <span id="rata-rata" class="rata-rata">0,0</span>
+                <div>
+                    <div id="bintang-rata" class="bintang-tampil">&#9734;&#9734;&#9734;&#9734;&#9734;</div>
+                    <small id="jumlah-ulasan">Belum ada ulasan</small>
+                </div>
+            </div>
+
+            <!-- Form ulasan -->
+            <form id="form-ulasan" class="form-ulasan">
+                <label for="nama-ulasan">Nama</label>
+                <input type="text" id="nama-ulasan" placeholder="Contoh: Budi">
+
+                <label>Rating</label>
+                <div id="pilih-bintang" class="pilih-bintang">
+                    <button type="button" data-nilai="1" aria-label="1 bintang">&#9733;</button>
+                    <button type="button" data-nilai="2" aria-label="2 bintang">&#9733;</button>
+                    <button type="button" data-nilai="3" aria-label="3 bintang">&#9733;</button>
+                    <button type="button" data-nilai="4" aria-label="4 bintang">&#9733;</button>
+                    <button type="button" data-nilai="5" aria-label="5 bintang">&#9733;</button>
+                </div>
+
+                <label for="isi-ulasan">Komentar</label>
+                <textarea id="isi-ulasan" rows="3" placeholder="Ceritakan pengalamanmu makan di Gepuk Burger"></textarea>
+
+                <p id="error-ulasan" class="pesan-error"></p>
+                <button type="submit" class="tombol">Kirim Ulasan</button>
+            </form>
+
+            <!-- Daftar ulasan diisi oleh script.js -->
+            <ul id="daftar-ulasan" class="daftar-ulasan"></ul>
+        </section>
+
         <section id="kontak">
-            <h2>Lokasi gepuk burger</h2>
+            <h2>Lokasi Gepuk Burger</h2>
             <p>Alamat: Jl. Kaliurang Km 6, Sleman, Yogyakarta</p>
             <p>Jam buka: setiap hari, 10.00 sampai 22.00</p>
         </section>
