@@ -1,69 +1,177 @@
-/* Ganti warna di sini, semua bagian halaman ikut berubah */
+/* ===== Warna tema Gepuk Burger =====
+   Ganti warna di sini, semua bagian halaman ikut berubah */
 :root {
-    --utama: #b45309;
+    --utama: #b91c1c;      /* merah saus tomat */
+    --aksen: #f59e0b;      /* kuning mustard */
+    --gelap: #3b1d0f;      /* cokelat roti panggang */
     --teks: #1f2937;
     --redup: #6b7280;
-    --latar: #fffbf5;
+    --latar: #fff8ee;      /* krem roti */
     --kartu: #ffffff;
-    --garis: #e5e7eb;
+    --garis: #f1e4d3;
 }
 
 * { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
     margin: 0;
     font-family: system-ui, sans-serif;
     color: var(--teks);
     background: var(--latar);
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .wadah { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
 
-/* Header */
-.atas { background: var(--utama); }
-.atas .wadah { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding-top: 14px; padding-bottom: 14px; }
-.merek { color: #fff; font-weight: 700; font-size: 20px; text-decoration: none; }
-.atas nav { display: flex; gap: 16px; }
-.atas nav a { color: #fff; text-decoration: none; }
+h2 {
+    font-size: 26px;
+    color: var(--gelap);
+    margin: 0 0 16px;
+}
 
-/* Konten */
+/* Garis kuning kecil di bawah judul bagian */
+h2::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 4px;
+    margin-top: 6px;
+    background: var(--aksen);
+    border-radius: 2px;
+}
+
+/* ===== Header ===== */
+.atas {
+    background: var(--utama);
+    position: sticky;      /* header tetap di atas saat di-scroll */
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.atas .wadah {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+.merek {
+    color: #fff;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+}
+.atas nav { display: flex; gap: 20px; }
+.atas nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+}
+.atas nav a:hover { border-bottom-color: var(--aksen); }
+
+/* ===== Konten ===== */
 main.wadah { padding-top: 32px; padding-bottom: 48px; }
-section { margin-bottom: 40px; }
-.hero h1 { font-size: 36px; margin: 0 0 8px; }
-.hero p { color: var(--redup); margin: 0 0 4px; }
-.buka { color: #15803d; }
-.tutup { color: #b91c1c; }
+section { margin-bottom: 48px; }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+/* Bagian pembuka (hero) */
+.hero {
+    background: var(--gelap);
+    color: #fff;
+    border-radius: 16px;
+    padding: 48px 32px;
+    border-bottom: 8px solid var(--aksen);
+}
+.hero h1 {
+    font-size: 44px;
+    margin: 0 0 8px;
+    color: var(--aksen);
+}
+.hero p { color: #f3e6d8; margin: 0 0 6px; font-size: 18px; }
 
-.kartu { background: var(--kartu); border: 1px solid var(--garis); border-radius: 8px; padding: 16px; }
-.kartu h3 { margin: 0 0 6px; font-size: 18px; }
-.kartu p { margin: 0 0 8px; color: var(--redup); }
-.kartu .harga { color: var(--utama); font-weight: 700; margin: 0; }
+/* Label status buka/tutup */
+.buka, .tutup {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 999px;
+    font-size: 15px;
+    color: #fff;
+}
+.buka { background: #15803d; }
+.tutup { background: #6b7280; }
+
+#tentang p { max-width: 720px; }
+
+/* ===== Kartu produk ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.kartu {
+    background: var(--kartu);
+    border: 1px solid var(--garis);
+    border-radius: 12px;
+    padding: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.kartu:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(59, 29, 15, 0.12);
+}
+.kartu h3 { margin: 0 0 6px; font-size: 18px; color: var(--gelap); }
+.kartu p { margin: 0 0 8px; color: var(--redup); font-size: 15px; }
+.kartu .harga {
+    color: var(--utama);
+    font-weight: 800;
+    font-size: 18px;
+    margin: 0;
+}
+
 .foto {
     aspect-ratio: 4 / 3;
     background: var(--garis);
-    border-radius: 6px;
+    border-radius: 8px;
     margin-bottom: 12px;
     display: grid;
     place-items: center;
     color: var(--redup);
 }
 
+/* ===== Tombol WhatsApp ===== */
 .tombol {
     display: inline-block;
     background: var(--utama);
     color: #fff;
-    border-radius: 6px;
-    padding: 10px 16px;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 12px 24px;
+    margin-top: 8px;
     text-decoration: none;
+    transition: background 0.2s;
 }
-.tombol:hover { opacity: .9; }
+.tombol:hover { background: var(--gelap); }
 
-/* Footer */
-.bawah { border-top: 1px solid var(--garis); padding: 16px 0; color: var(--redup); font-size: 14px; }
+/* ===== Footer ===== */
+.bawah {
+    background: var(--gelap);
+    color: #f3e6d8;
+    padding: 20px 0;
+    font-size: 14px;
+    text-align: center;
+}
 
+/* ===== Tampilan HP ===== */
 @media (max-width: 600px) {
-    .hero h1 { font-size: 28px; }
+    .hero { padding: 32px 20px; }
+    .hero h1 { font-size: 32px; }
+    .hero p { font-size: 16px; }
+    .atas nav { gap: 14px; }
 }
