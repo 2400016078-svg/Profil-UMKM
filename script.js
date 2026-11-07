@@ -5,6 +5,7 @@ const produk = [
     { nama: 'Gepuk Sambal Bawang', harga: 22000, keterangan: 'Pedas gurih dengan sambal bawang racikan sendiri.', foto: 'gambar/sambal-bawang.jpg' },
     { nama: 'Gepuk Dobel', harga: 29000, keterangan: 'Dua daging gepuk, dua keju, untuk yang lapar berat.', foto: 'gambar/dobel.jpg' },
     { nama: 'Gepuk Sosis', harga: 30000, keterangan: 'tiga daging sosis gepuk, dua keju, untuk yang suka sosis.', foto: 'gambar/burgersosis.jpeg' },
+    { nama: 'Gepuk Saos mushroom', harga: 35000, keterangan: 'dua daging gepuk, saos mushroom, untuk yang suka manis gurih.', foto: 'gambar/burgermushroom.jpeg' },
 ];
 
 // Jam buka (format 24 jam), harus sama dengan teks jam buka di index.html
