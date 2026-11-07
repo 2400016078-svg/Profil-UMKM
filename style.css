@@ -231,3 +231,159 @@ section { margin-bottom: 48px; }
 @media (max-width: 600px) {
     .kartu { flex-basis: 80%; }       /* di HP satu kartu hampir selebar layar */
 }
+
+/* ===== Tombol jumlah di kartu ===== */
+.kaki-kartu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.atur-jumlah {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.atur-jumlah span {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.btn-jumlah {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--utama);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--utama);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+}
+.btn-jumlah:hover {
+    background: var(--utama);
+    color: #fff;
+}
+
+/* Kartu yang sudah dipilih diberi garis merah */
+.kartu.dipilih { border-color: var(--utama); }
+
+/* ===== Bagian Pesanan Kamu ===== */
+.pesanan {
+    background: var(--kartu);
+    border: 1px solid var(--garis);
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 560px;
+}
+
+.daftar-pesanan {
+    list-style: none;
+    margin: 0 0 12px;
+    padding: 0;
+}
+.daftar-pesanan li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--garis);
+}
+.daftar-pesanan li.kosong {
+    color: var(--redup);
+    justify-content: flex-start;
+}
+
+.total-baris {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.total-baris strong { color: var(--utama); }
+
+.pesanan label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.pesanan input,
+.pesanan textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d6c7b4;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    margin-bottom: 14px;
+    background: #fff;
+}
+.pesanan input:focus,
+.pesanan textarea:focus {
+    outline: 2px solid var(--aksen);
+    border-color: var(--aksen);
+}
+
+.pesan-error {
+    color: #b91c1c;
+    margin: 0 0 12px;
+    min-height: 1em;
+}
+
+.aksi-pesanan {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* .tombol juga dipakai untuk <button>, jadi hapus gaya bawaan tombol */
+button.tombol {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    margin-top: 0;
+}
+.tombol:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.tombol-garis {
+    background: transparent;
+    color: var(--utama);
+    border: 2px solid var(--utama);
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.tombol-garis:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* ===== Bar ringkasan pesanan di bawah layar ===== */
+.ringkas {
+    position: fixed;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--gelap);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+}
+.ringkas strong { color: var(--aksen); }
+.ringkas[hidden] { display: none; }   /* wajib, karena display: flex di atas mengalahkan hidden */
