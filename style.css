@@ -109,12 +109,6 @@ section { margin-bottom: 48px; }
 #tentang p { max-width: 720px; }
 
 /* ===== Kartu produk ===== */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-}
-
 .kartu {
     background: var(--kartu);
     border: 1px solid var(--garis);
@@ -135,15 +129,15 @@ section { margin-bottom: 48px; }
     margin: 0;
 }
 
+/* Foto produk */
 .foto {
-     width: 100%;
+    width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 12px;
     display: block;
 }
-
 
 /* ===== Tombol WhatsApp ===== */
 .tombol {
@@ -174,4 +168,52 @@ section { margin-bottom: 48px; }
     .hero h1 { font-size: 32px; }
     .hero p { font-size: 16px; }
     .atas nav { gap: 14px; }
+}
+
+/* ===== Slider produk ===== */
+.slider {
+    position: relative;
+}
+
+.grid {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;                 /* bisa digeser ke samping */
+    scroll-snap-type: x mandatory;    /* berhenti pas di awal kartu */
+    scroll-behavior: smooth;
+    padding: 8px 4px 28px;            /* bawah 28px agar bayangan kartu tidak terpotong */
+    scrollbar-width: none;            /* sembunyikan scrollbar (Firefox) */
+}
+.grid::-webkit-scrollbar { display: none; }   /* sembunyikan scrollbar (Chrome) */
+
+.kartu {
+    flex: 0 0 260px;                  /* lebar setiap kartu 260px */
+    scroll-snap-align: start;
+}
+
+.geser {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--utama);
+    color: #fff;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.geser:hover { background: var(--gelap); }
+.geser:disabled { opacity: 0.3; cursor: default; }
+.geser.kiri { left: -14px; }
+.geser.kanan { right: -14px; }
+
+@media (max-width: 600px) {
+    .kartu { flex-basis: 80%; }       /* di HP satu kartu hampir selebar layar */
+    .geser.kiri { left: 0; }
+    .geser.kanan { right: 0; }
 }
