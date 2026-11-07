@@ -171,8 +171,37 @@ section { margin-bottom: 48px; }
 }
 
 /* ===== Slider produk ===== */
-.slider {
-    position: relative;
+/* Judul "Produk" di kiri, tombol geser di kanan */
+.judul-produk {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 16px;
+}
+.judul-produk h2 { margin: 0; }
+
+.kontrol { display: flex; gap: 8px; }
+
+.geser {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--utama);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--utama);
+    display: grid;
+    place-items: center;              /* panah tepat di tengah lingkaran */
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.geser svg { width: 18px; height: 18px; }
+.geser:hover:not(:disabled) {
+    background: var(--utama);
+    color: #fff;
+}
+.geser:disabled {
+    opacity: 0.35;
+    cursor: default;
 }
 
 .grid {
@@ -191,29 +220,6 @@ section { margin-bottom: 48px; }
     scroll-snap-align: start;
 }
 
-.geser {
-    position: absolute;
-    top: 40%;
-    transform: translateY(-50%);
-    z-index: 2;
-    width: 44px;
-    height: 44px;
-    border: none;
-    border-radius: 50%;
-    background: var(--utama);
-    color: #fff;
-    font-size: 28px;
-    line-height: 1;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-.geser:hover { background: var(--gelap); }
-.geser:disabled { opacity: 0.3; cursor: default; }
-.geser.kiri { left: -14px; }
-.geser.kanan { right: -14px; }
-
 @media (max-width: 600px) {
     .kartu { flex-basis: 80%; }       /* di HP satu kartu hampir selebar layar */
-    .geser.kiri { left: 0; }
-    .geser.kanan { right: 0; }
 }
